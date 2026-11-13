@@ -1,40 +1,27 @@
-import AIRun from "@/entities/AIRun";
-import { Run, RunStatus } from "@/shared/types/ai-runs";
+"use client";
 
-const MockRuns: Run[] = [
-  {
-    id: "1",
-    name: "Auth refactor",
-    repository: "web-platform",
-    branch: "main",
-    status: RunStatus.running,
-    createdAt: "2023-06-01T12:00:00Z",
-    durationSeconds: 600,
-    logs: [],
-  },
-  {
-    id: "2",
-    name: "Fix checkout tests",
-    repository: "payments",
-    branch: "develop",
-    status: RunStatus.succeeded,
-    createdAt: "2023-06-01T12:00:00Z",
-    durationSeconds: 300,
-    logs: [],
-  },
-  {
-    id: "3",
-    name: "Update dependencies",
-    repository: "api-service",
-    branch: "main",
-    status: RunStatus.queued,
-    createdAt: "2023-06-01T12:00:00Z",
-    durationSeconds: 0,
-    logs: [],
-  },
-];
+import { Run } from "@/shared/types/ai-runs";
+import { useEffect, useState } from "react";
+import { fetchRuns } from "./api/fetchRuns";
+import RunsTable from "@/app/widgets/RunsTable";
 
 export default function RunsPage() {
+  const [runs, setRuns] = useState<Run[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchRuns()
+      .then((fetchedRuns) => {
+        setRuns(fetchedRuns);
+      })
+      .catch(() => {
+        setRuns([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <section className="dashboard-content" aria-label="Project runs">
       <header className="project-header">
@@ -48,28 +35,13 @@ export default function RunsPage() {
         className="recent-runs"
         id="runs"
         aria-labelledby="recent-runs-title"
+        aria-busy={isLoading}
       >
         <h2 id="recent-runs-title" className="section-title">
           RECENT RUNS
         </h2>
-        <table className="runs-table">
-          <thead>
-            <tr>
-              <th scope="col">RUN</th>
-              <th scope="col">REPOSITORY</th>
-              <th scope="col">BRANCH</th>
-              <th scope="col">STATUS</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            {MockRuns.map((run) => (
-              <tr key={run.id}>
-                <AIRun {...run} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <RunsTable runs={runs} isLoading={isLoading} />
       </section>
 
       <footer className="dashboard-footer">
