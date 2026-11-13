@@ -1,4 +1,12 @@
-import { Run } from "@/shared/types/ai-runs";
+import { Run, RunStatus } from "@/shared/types/ai-runs";
+import "./ui/styles.scss";
+
+const statusClassMap: Record<RunStatus, string> = {
+  [RunStatus.queued]: "status-badge--queued",
+  [RunStatus.running]: "status-badge--running",
+  [RunStatus.succeeded]: "status-badge--succeeded",
+  [RunStatus.failed]: "status-badge--failed",
+};
 
 export default function AIRun(Job: Run) {
   return (
@@ -8,7 +16,9 @@ export default function AIRun(Job: Run) {
       <td scope="col">{Job.branch}</td>
 
       <td scope="col">
-        <span className="status-badge">{Job.status}</span>
+        <span className={`status-badge ${statusClassMap[Job.status]}`}>
+          {Job.status}
+        </span>
       </td>
     </>
   );

@@ -1,0 +1,21 @@
+.status-badge {
+  &--queued {
+    background: #e6eaf3;
+    color: #2c466f;
+  }
+
+  &--running {
+    background: #eaf3ff;
+    color: #2456a8;
+  }
+
+  &--succeeded {
+    background: #eaf9f1;
+    color: #1f7a4d;
+  }
+
+  &--failed {
+    background: #fdeceb;
+    color: #b3261e;
+  }
+}
