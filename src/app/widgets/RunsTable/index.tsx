@@ -3,10 +3,12 @@ import { Run } from "@/shared/types/ai-runs";
 import { useMemo, useState } from "react";
 import "./ui/styles.scss";
 import RunsFilter from "@/features/RunsFilter";
+import RunModalWindow from "@/features/RunModalWindow";
 
 export default function RunsTable(props: { runs: Run[]; isLoading: boolean }) {
   const [selectedStatus, setSelectedStatus] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRun, setSelectedRun] = useState<Run | null>(null);
   const skeletonRows = Array.from({ length: 3 }, (_, index) => index);
 
   const filteredRuns = useMemo(() => {
@@ -72,13 +74,24 @@ export default function RunsTable(props: { runs: Run[]; isLoading: boolean }) {
             </tr>
           ) : (
             filteredRuns.map((run) => (
-              <tr key={run.id}>
+              <tr
+                key={run.id}
+                onClick={() => setSelectedRun(run)}
+                className="runs-table-row"
+              >
                 <AIRun {...run} />
               </tr>
             ))
           )}
         </tbody>
       </table>
+
+      {selectedRun && (
+        <RunModalWindow
+          selectedRun={selectedRun}
+          closeModalWindow={() => setSelectedRun(null)}
+        />
+      )}
     </>
   );
 }
