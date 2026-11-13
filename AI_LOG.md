@@ -1,0 +1,4 @@
+1. Copilot, ChatGPT
+2. Сделал статичный дизайн по скриншоту: Check my Image with design. Make this design instead of contend in page.tsx. No need logic, components, etc. Only static design from screenshot.
+  Быстрый визуал для фильтра по статусу с простой фильтрацией: Add filter for runs in the RunTable: All, Queued, Running, Succeeded, Failed. Let make dropdown menu for selecting neccessary status
+3. Поскольку проект был создан несколько часов назад, я давал AI только точечные небольшие таски, чтобы у меня была возможность задавать и контролировать архитектуру. Сложных тасков не было, поэтому и ошибок от AI также не было. Единственный момент - в ручную занимался перетасовкой файлов и компонентов, т.к. это как раз начало разработки дизайна системы. Далее AI понимал эту систему и выполнял точечные таски учитывая ее
