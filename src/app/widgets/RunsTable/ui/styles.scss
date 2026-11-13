@@ -4,6 +4,14 @@
   margin-bottom: 12px;
 }
 
+.runs-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .runs-filter {
   display: inline-flex;
   align-items: center;
@@ -14,8 +22,8 @@
   letter-spacing: 0.6px;
   text-transform: uppercase;
 
-  select {
-    min-width: 140px;
+  select,
+  input {
     min-height: 32px;
     padding: 0 12px;
     border: 1px solid #dfe3e9;
@@ -23,7 +31,6 @@
     background: #fbf9f7;
     color: #071a33;
     font: inherit;
-    cursor: pointer;
     outline: none;
 
     &:disabled {
@@ -31,6 +38,20 @@
       opacity: 0.7;
     }
   }
+
+  select {
+    min-width: 140px;
+    cursor: pointer;
+  }
+
+  input {
+    min-width: 210px;
+  }
+}
+
+.runs-filter-search {
+  flex: 1 1 220px;
+  justify-content: flex-end;
 }
 
 .runs-table {
