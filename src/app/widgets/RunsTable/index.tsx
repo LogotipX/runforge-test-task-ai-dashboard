@@ -1,13 +1,39 @@
+"use client";
+
 import AIRun from "@/entities/AIRun";
-import { Run } from "@/shared/types/ai-runs";
-import { useMemo, useState } from "react";
-import "./ui/styles.scss";
+import { Run, RunStatus } from "@/shared/types/ai-runs";
 import RunsFilter from "@/features/RunsFilter";
 import RunModalWindow from "@/features/RunModalWindow";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+import "./ui/styles.scss";
+
+const statusOptions = ["ALL", ...Object.values(RunStatus)];
 
 export default function RunsTable(props: { runs: Run[]; isLoading: boolean }) {
-  const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const rawStatus = searchParams.get("status") ?? "ALL";
+  const selectedStatus = statusOptions.includes(rawStatus) ? rawStatus : "ALL";
   const [searchQuery, setSearchQuery] = useState("");
+
+  const setSelectedStatus = (status: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (status === "ALL") {
+      params.delete("status");
+    } else {
+      params.set("status", status);
+    }
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  };
+
   const [selectedRun, setSelectedRun] = useState<Run | null>(null);
   const skeletonRows = Array.from({ length: 3 }, (_, index) => index);
 

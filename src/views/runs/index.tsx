@@ -1,7 +1,7 @@
 "use client";
 
 import { Run } from "@/shared/types/ai-runs";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { fetchRuns } from "./api/fetchRuns";
 import RunsTable from "@/app/widgets/RunsTable";
 
@@ -41,7 +41,9 @@ export default function RunsPage() {
           RECENT RUNS
         </h2>
 
-        <RunsTable runs={runs} isLoading={isLoading} />
+        <Suspense fallback={<div className="runs-table-toolbar" aria-hidden="true" />}>
+          <RunsTable runs={runs} isLoading={isLoading} />
+        </Suspense>
       </section>
 
       <footer className="dashboard-footer">
