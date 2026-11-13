@@ -1,12 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/runforge-test-task-ai-dashboard',
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
   /* config options here */
   experimental: {
     agentFeedback: true,
   },
-  cacheComponents: true,
-  partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {
