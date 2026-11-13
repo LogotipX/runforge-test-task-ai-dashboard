@@ -11,11 +11,11 @@ const statusClassMap: Record<RunStatus, string> = {
 export default function AIRun(Job: Run) {
   return (
     <>
-      <td scope="col">{Job.name}</td>
-      <td scope="col">{Job.repository}</td>
-      <td scope="col">{Job.branch}</td>
+      <td scope="RUN">{Job.name}</td>
+      <td scope="REPO">{Job.repository}</td>
+      <td scope="BRANCH">{Job.branch}</td>
 
-      <td scope="col">
+      <td scope="STATUS">
         <span className={`status-badge ${statusClassMap[Job.status]}`}>
           {Job.status}
         </span>
