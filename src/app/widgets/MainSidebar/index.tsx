@@ -14,13 +14,14 @@ const navItems = [
 
 export default function MainSidebar() {
   const pathname = usePathname();
+  const normalizedPathname = pathname.replace(/\/+$/, "") || "/";
 
   return (
     <aside className="sidebar">
       <h1 className="workspace-title">WORKSPACE</h1>
       <nav className="workspace-nav" aria-label="Workspace">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = normalizedPathname === item.href;
 
           return (
             <Link
